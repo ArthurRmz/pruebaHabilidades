@@ -87,10 +87,10 @@ body {
   color: #000000;
 }
 
-form .error {
-  color: #ff0000;
+.oculto{
+  display: none;
 }
 
-input.error{
-  border-bottom: red 2px solid; 
-} 
+#myModal{
+  color: #000000;
+}

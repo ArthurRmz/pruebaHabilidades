@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include ../partials/header.ejs %>
+</head>
+
+<body>
+
+<% include ../partials/nav.ejs %>
+
+<div class="container">
+  <h2>Palindromo</h2>
+  <script src="/js/algoritmo-palindromo.js"></script>
+
+</div>
+
+<form method="" action="" id="formulario-palindromo">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <input type="text" class="form-control required" name="frase" id="frase" placeholder="Ingresa frase">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <button type="submit" id="btn-verificar" class="btn btn-primary">Verificar</button>
+      </div>
+    </div>
+  </div>
+</form>
+
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 id="modal-encabezado" class="modal-title">Modal Header</h4>
+      </div>
+      <div class="modal-body">
+        <p id="modal-texto">Some text in the modal.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,22 +1,36 @@
 const conn = require("../db/dbQuery");
 
-const obtenerDatosConEmail = async (email) => {
-    const query = ` SELECT nombre, clave, id, privilegios 
-                    FROM public.usuarios
-                    WHERE nombre LIKE $1`;
+const obtenerDatosPorId = async (id) => {
+    const query = ` SELECT id, nombre, rfc, direccion, telefono, website, correo, clave 
+                    FROM usuarios
+                    WHERE id = $1`;
     try {
-        const { rows } = await conn.query(query, [email]);
+        const { rows } = await conn.query(query, [id]);
         const dbResponse = rows[0];
         return dbResponse;
     } catch (error) {
-        console.log("[userDAO][obtenerDatosConEmail] Error "+error);
+        console.log("[userDAO][obtenerDatosPorId] Error "+error);
+    }
+};
+
+const obtenerDatosConCorreoRfc = async (datos) => {
+    const query = ` SELECT id, nombre, rfc, direccion, telefono, website, correo, clave
+                    FROM usuarios
+                    WHERE correo LIKE $1
+                    OR rfc LIKE $2`;
+    try {
+        const { rows } = await conn.query(query, datos);
+        const dbResponse = rows[0];
+        return dbResponse;
+    } catch (error) {
+        console.log(`[userDAO][obtenerDatosConCorreoRfc] Error ${error}`);
     }
 };
 
 const darDeAltaUsuario = async (values) => {
-    const query = ` INSERT INTO public.usuarios(
-        nombre, clave, privilegios)
-        VALUES($1, $2, $3)
+    const query = ` INSERT INTO usuarios(
+        nombre, correo, rfc, clave)
+        VALUES($1, $2, $3, $4)
         returning *`;
     try {
         const { rows } = await conn.query(query, values);
@@ -54,5 +68,5 @@ const listUsers = async (pagina) => {
 };
 
 module.exports = {
-    obtenerDatosConEmail, darDeAltaUsuario, listUsers
+    darDeAltaUsuario, listUsers, obtenerDatosConCorreoRfc, obtenerDatosPorId
 };

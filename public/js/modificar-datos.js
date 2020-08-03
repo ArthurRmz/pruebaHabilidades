@@ -5,13 +5,13 @@ $( document ).ready(function() {
 });
 
 function noEnviar(){
-    $("#formulario-login").submit(function(e){
+    $("#formulario-modificar-datos").submit(function(e){
         e.preventDefault();
     });
 }
 
 function validarFormulario(){
-    let form = $( "#formulario-login" );
+    let form = $( "#formulario-modificar-datos" );
     form.validate();
     $( "#btn-ingresar" ).click(function() {
         //alert( "Valid: " + form.valid() );

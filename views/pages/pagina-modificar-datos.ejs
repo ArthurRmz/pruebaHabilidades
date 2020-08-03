@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include ../partials/header.ejs %>
+</head>
+
+<body>
+
+<% include ../partials/nav.ejs %>
+
+<div class="container">
+  <h2>Modificar datos</h2>
+</div>
+
+<form method="" action="" id="formulario-modificar-datos">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <input type="text" class="form-control fondo-blanco" readonly value="<%= results.nombre %>" name="nombre" id="nombre" placeholder="Ingresa nombre">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <input type="text" class="form-control fondo-blanco" readonly value="<%= results.rfc %>" name="rfc" id="rfc" placeholder="Ingresa rfc">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <input type="text" class="form-control fondo-blanco" readonly value="<%= results.correo %>" name="correo" id="correo" placeholder="Ingresa correo">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <input type="text" class="form-control" name="direccion" value="<%= results.direccion %>" id="direccion" placeholder="Ingresa direccion">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <input type="text" class="form-control" name="telefono" value="<%= results.telefono %>" id="telefono" placeholder="Ingresa telefono">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <input type="text" class="form-control" name="website" value="<%= results.website %>" id="website" placeholder="Ingresa website">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <button type="submit" id="btn-actualizar" class="btn btn-primary">Actualizar</button>
+      </div>
+    </div>
+  </div>
+</form>
+</body>
+</html>
