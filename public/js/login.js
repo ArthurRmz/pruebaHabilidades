@@ -28,6 +28,7 @@ function validarFormulario(){
 }
 
 function ingresar(datos){
+    $("#modalCargando").modal("toggle");
     fetch("/user/login", {
         method: 'POST', // or 'PUT'
         body: JSON.stringify(datos), // data can be `string` or {object}!
@@ -46,5 +47,8 @@ function ingresar(datos){
             $("#myModal").modal("toggle");
         }
     })
-    .catch(error => console.error('Error:', error));
+    .catch(error => console.error('Error:', error))
+    .finally(()=>{
+        $("#modalCargando").modal("toggle");
+    });
 }

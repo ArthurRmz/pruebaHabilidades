@@ -67,6 +67,37 @@ const listUsers = async (pagina) => {
     }
 };
 
+const actualizarUsuario = async (values) =>{
+    const query = ` UPDATE usuarios
+                    SET direccion=$1, telefono=$2, website=$3
+                    WHERE id=$4
+                    returning *`;
+    try {
+        const { rows } = await conn.query(query, values);
+        const dbResponse = rows[0];
+        return dbResponse;
+    } catch (error) {
+        console.log("[userDAO][actualizarUsuario] Error "+error);
+    }
+    
+};
+
+const actualizarClaveUsuario = async (values) =>{
+    const query = ` UPDATE usuarios
+                    SET clave=$1
+                    WHERE id=$2
+                    returning *`;
+    try {
+        const { rows } = await conn.query(query, values);
+        const dbResponse = rows[0];
+        return dbResponse;
+    } catch (error) {
+        console.log("[userDAO][actualizarClaveUsuario] Error "+error);
+    }
+    
+};
+
 module.exports = {
-    darDeAltaUsuario, listUsers, obtenerDatosConCorreoRfc, obtenerDatosPorId
+    darDeAltaUsuario, listUsers, obtenerDatosConCorreoRfc, obtenerDatosPorId, actualizarUsuario,
+    actualizarClaveUsuario
 };

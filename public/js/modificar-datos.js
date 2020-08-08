@@ -13,23 +13,25 @@ function noEnviar(){
 function validarFormulario(){
     let form = $( "#formulario-modificar-datos" );
     form.validate();
-    $( "#btn-ingresar" ).click(function() {
+    $( "#btn-actualizar" ).click(function() {
         //alert( "Valid: " + form.valid() );
         if(form.valid()){
-            let correo = $("#correo").val();
-            let clave = $("#clave").val();
+            let direccion = $("#direccion").val();
+            let telefono = $("#telefono").val();
+            let website = $("#website").val();
             let datos = {
-                correo: correo,
-                clave: clave
+                direccion: direccion,
+                telefono: telefono,
+                website: website
             };
-            ingresar(datos);
+            actualizarDatos(datos);
         }
     });
 }
 
-function ingresar(datos){
-    fetch("/user/login", {
-        method: 'POST', // or 'PUT'
+function actualizarDatos(datos){
+    fetch("/user", {
+        method: 'PUT', // or 'PUT'
         body: JSON.stringify(datos), // data can be `string` or {object}!
         headers:{
           'Content-Type': 'application/json'
@@ -39,11 +41,14 @@ function ingresar(datos){
     .then(response => {
         console.log(response);
         if(response.status === "success"){
-            window.location = "/home";
+            $("#modal-encabezado").text("Información");
+            $("#modal-texto").text("Datos actualizados de forma correcta");
+            $("#myModal").modal("toggle");
         }else{
             $("#modal-encabezado").text("Error");
             $("#modal-texto").text(response.mensaje);
             $("#myModal").modal("toggle");
+
         }
     })
     .catch(error => console.error('Error:', error));

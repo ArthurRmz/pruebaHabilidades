@@ -10,10 +10,12 @@
 
 <div class="container">
   <h2>Modificar datos</h2>
+  <script src="/js/modificar-datos.js"></script>
 </div>
 
-<form method="" action="" id="formulario-modificar-datos">
-  <div class="container">
+<div class="login-form">
+  <form method="get" action="" id="formulario-modificar-datos">
+    <div class="container">
     <div class="row">
       <div class="col">
         <input type="text" class="form-control fondo-blanco" readonly value="<%= results.nombre %>" name="nombre" id="nombre" placeholder="Ingresa nombre">
@@ -51,5 +53,26 @@
     </div>
   </div>
 </form>
+</div>
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 id="modal-encabezado" class="modal-title">Modal Header</h4>
+      </div>
+      <div class="modal-body">
+        <p id="modal-texto">Some text in the modal.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 </body>
 </html>

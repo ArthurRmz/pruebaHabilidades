@@ -4,38 +4,32 @@ $( document ).ready(function() {
     validarFormulario();
 });
 
-
 function noEnviar(){
-    $("#formulario").submit(function(e){
+    $("#formulario-modificar-clave").submit(function(e){
         e.preventDefault();
     });
 }
 
 function validarFormulario(){
-    let form = $( "#formulario" );
+    let form = $( "#formulario-modificar-clave" );
     form.validate();
-    $( "#btn-registrarse" ).click(function() {
-        //alert( "Valid: " + form.valid() );
+    $( "#btn-actualizar-clave" ).click(function() {
         if(form.valid()){
-            let nombre = $("#nombre").val();
-            let correo = $("#correo").val();
-            let rfc = $("#rfc").val();
-            let clave1 = $("#clave1").val();
+            let claveActual = $("#claveActual").val();
+            let claveNueva = $("#claveNueva").val();
             let datos = {
-                nombre: nombre,
-                correo: correo,
-                rfc: rfc,
-                clave: clave1
+                claveActual: claveActual,
+                claveNueva: claveNueva,
             };
-            guardarDatos(datos);
+            actualizarDatos(datos);
         }
     });
 }
 
-function guardarDatos(datos){
+function actualizarDatos(datos){
     $("#modalCargando").modal("toggle");
-    fetch("/user", {
-        method: 'POST', // or 'PUT'
+    fetch("/user/clave", {
+        method: 'PUT', // or 'PUT'
         body: JSON.stringify(datos), // data can be `string` or {object}!
         headers:{
           'Content-Type': 'application/json'
@@ -43,11 +37,12 @@ function guardarDatos(datos){
     })
     .then(res => res.json())
     .then(response => {
+        //console.log(response);
         if(response.status === "success"){
             $("#modal-encabezado").text("Información");
-            $("#modal-texto").text("El usuario se ingreso de forma correcta");
+            $("#modal-texto").text("Datos actualizados de forma correcta");
             $("#myModal").modal("toggle");
-            setTimeout(function(){ window.location = "/"; }, 3000);
+            limpiarDatos();
         }else{
             $("#modal-encabezado").text("Error");
             $("#modal-texto").text(response.mensaje);
@@ -58,4 +53,10 @@ function guardarDatos(datos){
     .finally(()=>{
         $("#modalCargando").modal("toggle");
     });
+}
+
+function limpiarDatos(){
+    $("#claveActual").val("");
+    $("#claveNueva").val("");
+    $("#claveNueva1").val("");
 }

@@ -4,12 +4,12 @@ const bcrypt    = require("bcrypt");
 
 const login = async (req,res) => {
     const {correo,clave} = req.body;
-    console.log(`Correo: ${correo}`);
-    console.log(`Clave: ${clave}`);
+    /*console.log(`Correo: ${correo}`);
+    console.log(`Clave: ${clave}`);*/
     try{
         const valuesRfcCorreo = [correo, ""];
         const dbResponse = await userDao.obtenerDatosConCorreoRfc(valuesRfcCorreo);
-        console.log(`Response Db: ${dbResponse}`);
+        //console.log(`Response Db: ${dbResponse}`);
         if(!dbResponse){
             errorMessage.mensaje = "El email no existe";
             return res.send(errorMessage);
@@ -26,7 +26,7 @@ const login = async (req,res) => {
     }catch(error){
         console.log("[userController][login] Error "+error);
         errorMessage.mensaje = error;
-        res.send(errorMessage);
+        return res.send(errorMessage);
 
     }
 };
@@ -67,6 +67,62 @@ const crearUsuario = async (req,res) => {
     }
 };
 
+const actualizarDatos = async (req,res) => {
+    const {direccion, telefono, website} = req.body;
+    //const idUser = req.session.id_usuario;
+    //console.log(`Id usuario: ${idUser}`);
+    const idUser = req.session.id_usuario;
+    const values = [direccion, telefono, website, idUser];
+    try {
+        const dbResponse = await userDao.actualizarUsuario(values);
+        if(dbResponse){
+            return res.send(successMessage);
+        }else{
+            errorMessage.mensaje = "Ocurrio un error en base de datos";
+            return res.send(errorMessage);
+        }
+    } catch (error) {
+        console.log("[userController][actualizarDatos] Error "+error);
+        errorMessage.mensaje = error;
+        return res.send(errorMessage);
+
+    }
+};
+
+const actualizarClave = async (req,res) => {
+    const {claveActual, claveNueva} = req.body;
+    /*console.log(`Clave Actual: ${claveActual}`);
+    console.log(`Clave Nueva: ${claveNueva}`);*/
+    const idUser = req.session.id_usuario;
+    try {
+        const dbResponse = await userDao.obtenerDatosPorId(idUser);
+        if(!dbResponse){
+            errorMessage.mensaje = "Ocurrio un error en base de datos";
+            return res.send(errorMessage);
+        }
+        const match = await bcrypt.compare(claveActual, dbResponse.clave);
+        if(match){
+            //TODO Actualizar
+            const hash = await bcrypt.hash(claveNueva, 15);
+            const values = [hash,idUser];
+            const bdResponse = await userDao.actualizarClaveUsuario(values);
+            if(bdResponse){
+                return res.send(successMessage);
+            }else{
+                errorMessage.mensaje = "Ocurrio un error en base de datos";
+                return res.send(errorMessage);
+            }
+        }else{
+            errorMessage.mensaje = "La clave no es correcta";
+            return res.send(errorMessage);
+        }
+    } catch (error) {
+        console.log("[userController][actualizarClave] Error "+error);
+        errorMessage.mensaje = error;
+        return res.send(errorMessage);
+    }
+};
+
 module.exports = {
-    crearUsuario, login
+    crearUsuario, login, actualizarDatos, actualizarClave
 };

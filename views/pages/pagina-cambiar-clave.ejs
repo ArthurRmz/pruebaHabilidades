@@ -5,12 +5,68 @@
 </head>
 
 <body>
-
-<% include ../partials/nav.ejs %>
-
-<div class="container">
-  <h2>Cambiar clave</h2>
+  
+  <% include ../partials/nav.ejs %>
+  
+  <div class="container">
+    <h2>Cambiar clave</h2>
+    <script src="/js/modificar-clave.js"></script>
 </div>
 
+<div class="login-form">
+  <form method="get" action="" id="formulario-modificar-clave">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <input type="password" class="form-control required" name="claveActual" id="claveActual" placeholder="Ingresa clave actual">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <input type="password" class="form-control required" name="claveNueva" id="claveNueva" data-rule-equalTo="#claveNueva1" placeholder="Ingresa clave nueva">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <input type="password" class="form-control required" name="clave Nueva1" id="claveNueva1" data-rule-equalTo="#claveNueva" placeholder="Confirma la clave nueva">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <button type="submit" id="btn-actualizar-clave" class="btn btn-primary">Actualizar</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 id="modal-encabezado" class="modal-title">Modal Header</h4>
+      </div>
+      <div class="modal-body">
+        <p id="modal-texto">Some text in the modal.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modalCargando" data-backdrop="static" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-dialog-centered bd-example-modal-sm" role="document">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-body">
+        <p id="modal-texto">Cargando..</p>
+        <div class="spinner-border"></div>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 </html>

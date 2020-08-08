@@ -7,12 +7,11 @@ router.get("/", (req, res) => res.render('pages/login'));
 
 router.get("/registro", (req, res) => res.render('pages/registro'));
 
-router.get("/home", async (req, res) => {
+router.get("/home", auth,async (req, res) => {
     let dbResponse = null;
     let results = null;
     try{
-        //const idUser = req.session.id_usuario;
-        const idUser = 4;
+        const idUser = req.session.id_usuario;
         dbResponse = await daoUser.obtenerDatosPorId(idUser);
         //console.log(dbResponse);
         results = { 'results': (dbResponse) ? dbResponse : null};
@@ -22,16 +21,15 @@ router.get("/home", async (req, res) => {
     return res.render('pages/pagina-inicio', results);
 });
 
-router.get("/cambiar-clave", (req, res) => {
+router.get("/cambiar-clave", auth,(req, res) => {
     return res.render('pages/pagina-cambiar-clave');
 });
 
-router.get("/modificar-datos", async (req, res) => {
+router.get("/modificar-datos", auth,async (req, res) => {
     let dbResponse = null;
     let results = null;
     try{
-        //const idUser = req.session.id_usuario;
-        const idUser = 4;
+        const idUser = req.session.id_usuario;
         dbResponse = await daoUser.obtenerDatosPorId(idUser);
         //console.log(dbResponse);
         results = { 'results': (dbResponse) ? dbResponse : null};
@@ -41,7 +39,7 @@ router.get("/modificar-datos", async (req, res) => {
     return res.render('pages/pagina-modificar-datos',results);
 });
 
-router.get("/palindromo", (req, res) => {
+router.get("/palindromo", auth,(req, res) => {
     return res.render('pages/pagina-algoritmo-palidromo');
 });
 
